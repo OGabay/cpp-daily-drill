@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Popup canvas: fixed width, 480–600px tall, scrolls inside body ---------- */
+html,
+body {
+  width: 440px;
+  margin: 0;
+}
+
+body {
+  min-height: 480px;
+  max-height: 600px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: #2c221e;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  /* warm cream notebook with 20px checkered grid */
+  background-color: #faf6f0;
+  background-image:
+    linear-gradient(#ede4d7 1px, transparent 1px),
+    linear-gradient(90deg, #ede4d7 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-attachment: local;
+  scrollbar-width: thin;
+  scrollbar-color: #d6c7b2 transparent;
+}
+
+#root {
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+::selection {
+  background: #ecd3bd;
+}
+
+:focus-visible {
+  outline: 2px solid #9c4a1a;
+  outline-offset: 2px;
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-line bg-card shadow-warm;
+  }
+  .inline-code {
+    @apply rounded border border-line/70 bg-tint px-1 py-px font-mono text-[0.88em] text-[#7a3510];
+    overflow-wrap: anywhere;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white shadow-warm transition-colors hover:bg-accent-hover active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-line bg-card px-3 py-1.5 text-[12.5px] font-medium text-ink transition-colors hover:border-accent/50 hover:bg-tint disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .field {
+    @apply w-full rounded-lg border border-line bg-card px-2.5 py-1.5 text-[13px] text-ink placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20;
+  }
+  .label {
+    @apply mb-1 block text-[11.5px] font-semibold uppercase tracking-wide text-muted;
+  }
+}
+
+/* ---------- Code block (highlight.js, warm light theme) ---------- */
+.code-block {
+  background: #fbf5ec;
+  border: 1px solid #e2d5c3;
+  border-radius: 10px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d6c7b2 transparent;
+}
+.code-block pre {
+  margin: 0;
+  padding: 10px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre; /* never wrap; scroll horizontally */
+  width: max-content;
+  min-width: 100%;
+  color: #3a2c25;
+}
+.hljs-keyword,
+.hljs-type,
+.hljs-selector-tag {
+  color: #9c4a1a;
+  font-weight: 600;
+}
+.hljs-built_in {
+  color: #8a5a2b;
+}
+.hljs-string,
+.hljs-char {
+  color: #4d7a2a;
+}
+.hljs-number,
+.hljs-literal {
+  color: #b5651d;
+}
+.hljs-comment {
+  color: #9a8878;
+  font-style: italic;
+}
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: #a0522d;
+  font-weight: 400;
+}
+.hljs-meta .hljs-string {
+  color: #4d7a2a;
+}
+.hljs-title,
+.hljs-title.function_,
+.hljs-function .hljs-title {
+  color: #3d5a80;
+}
+.hljs-params {
+  color: #3a2c25;
+}
+.hljs-operator,
+.hljs-punctuation {
+  color: #6e5d52;
+}
+
+/* ---------- Small motion ---------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-rise {
+  animation: rise 180ms ease-out both;
+}
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-slide-in {
+  animation: slide-in 180ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-slide-in {
+    animation: none;
+  }
+}
